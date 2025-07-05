@@ -1,89 +1,224 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>MediFundr – EMI Calculator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f4f4;
-      max-width: 600px;
-      margin: 40px auto;
-      padding: 20px;
-      border-radius: 12px;
-      background-color: #fff;
-      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    :root {
+      --primary: #2e8bc0;
+      --primary-dark: #145da0;
+      --accent: #21e6c1;
+      --bg: #f7fafc;
+      --card-bg: #fff;
+      --success-bg: #e6f9f2;
+      --danger: #e57373;
+      --radius: 1.25rem;
+      --shadow: 0 4px 24px 0 rgba(46,139,192,0.10);
+      --input-bg: #f1f6fa;
+      --input-border: #c9e3f5;
+      --text: #222b45;
+      --muted: #7b8ca7;
+      --transition: 0.2s cubic-bezier(.4,0,.2,1);
     }
-    h1 {
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      font-family: 'Inter', Arial, sans-serif;
+      color: var(--text);
+      min-height: 100vh;
+    }
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #e0f7fa 0%, #f7fafc 100%);
+    }
+    .header {
+      width: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      color: #fff;
+      padding: 1.5rem 0 1rem 0;
       text-align: center;
-      color: #2c3e50;
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      box-shadow: 0 2px 12px 0 rgba(46,139,192,0.08);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .container {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 2.5rem 2rem 2rem 2rem;
+      margin: 2.5rem 0 2rem 0;
+      max-width: 420px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      align-items: stretch;
+    }
+    .form-title {
+      font-size: 1.35rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      text-align: center;
+      color: var(--primary-dark);
     }
     label {
-      display: block;
-      margin-top: 15px;
+      font-size: 1rem;
+      font-weight: 500;
+      margin-bottom: 0.3rem;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
     }
-    input, select {
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+    input[type="number"], select {
       width: 100%;
-      padding: 8px;
-      margin-top: 5px;
+      padding: 0.85rem 1rem;
+      border-radius: 0.7rem;
+      border: 1.5px solid var(--input-border);
+      background: var(--input-bg);
+      font-size: 1.05rem;
+      color: var(--text);
+      outline: none;
+      transition: border-color var(--transition), box-shadow var(--transition);
+      margin-top: 0.15rem;
+      box-sizing: border-box;
+    }
+    input[type="number"]:focus, select:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px #2e8bc033;
     }
     button {
-      background-color: #3498db;
-      color: white;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      color: #fff;
       border: none;
-      padding: 12px;
-      margin-top: 20px;
-      width: 100%;
+      padding: 1rem 0;
+      border-radius: 0.7rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-top: 0.7rem;
+      box-shadow: 0 2px 8px 0 rgba(46,139,192,0.10);
       cursor: pointer;
-      border-radius: 5px;
+      transition: background var(--transition), box-shadow var(--transition), transform var(--transition);
+      outline: none;
     }
-    button:hover {
-      background-color: #2980b9;
+    button:hover, button:focus {
+      background: linear-gradient(90deg, var(--primary-dark), var(--primary));
+      box-shadow: 0 4px 16px 0 rgba(46,139,192,0.13);
+      transform: translateY(-2px) scale(1.02);
     }
     .result {
-      margin-top: 30px;
-      background: #e8f5e9;
-      padding: 15px;
-      border-radius: 8px;
+      margin-top: 1.5rem;
+      background: var(--success-bg);
+      padding: 1.5rem 1.2rem;
+      border-radius: 1rem;
+      box-shadow: 0 2px 8px 0 rgba(33,230,193,0.07);
+      border-left: 5px solid var(--primary);
+      animation: fadeInResult 0.7s cubic-bezier(.4,0,.2,1);
+      display: none;
+    }
+    .result h3 {
+      margin-top: 0;
+      color: var(--primary-dark);
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.7rem;
+    }
+    .result p {
+      font-size: 1.08rem;
+      margin: 0.3em 0;
+      color: var(--text);
+    }
+    .result strong {
+      color: var(--primary-dark);
+    }
+    @keyframes fadeInResult {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: none; }
+    }
+    @media (max-width: 600px) {
+      .container {
+        padding: 1.2rem 0.5rem 1.5rem 0.5rem;
+        margin: 1.2rem 0 1rem 0;
+        max-width: 98vw;
+      }
+      .header {
+        font-size: 1.3rem;
+        padding: 1.1rem 0 0.7rem 0;
+      }
+    }
+    /* Optional: Add a smooth scroll to result */
+    html {
+      scroll-behavior: smooth;
     }
   </style>
 </head>
 <body>
-  <h1>MediFundr EMI Calculator</h1>
-
-  <label>Equipment Cost</label>
-  <input type="number" id="amount" placeholder="Enter amount (e.g. 500000)" />
-
-  <label>Currency</label>
-  <select id="currency">
-    <option value="INR">INR</option>
-    <option value="USD">USD</option>
-  </select>
-
-  <label>Down Payment (Optional)</label>
-  <input type="number" id="downPayment" placeholder="e.g. 50000" />
-
-  <label>Interest Rate (Annual %)</label>
-  <input type="number" id="rate" placeholder="e.g. 8.5" />
-
-  <label>Tenure (in months)</label>
-  <input type="number" id="tenure" placeholder="e.g. 36" />
-
-  <button onclick="calculateEMI()">Calculate EMI</button>
-
-  <div class="result" id="result" style="display:none;"></div>
-
+  <div class="header">
+    <span style="vertical-align: middle; font-weight: 700; letter-spacing: 1px;">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" style="vertical-align: middle; margin-right: 0.5em;"><circle cx="14" cy="14" r="14" fill="#21e6c1"/><path d="M8 14.5L12 18.5L20 10.5" stroke="#145da0" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      MediFundr
+    </span>
+  </div>
+  <form class="container" autocomplete="off" onsubmit="event.preventDefault(); calculateEMI();">
+    <div class="form-title">Medical Equipment Loan Calculator</div>
+    <div class="input-group">
+      <label for="amount">Equipment Cost</label>
+      <input type="number" id="amount" placeholder="Enter amount (e.g. 500000)" />
+    </div>
+    <div class="input-group">
+      <label for="currency">Currency</label>
+      <select id="currency">
+        <option value="INR">INR</option>
+        <option value="USD">USD</option>
+      </select>
+    </div>
+    <div class="input-group">
+      <label for="downPayment">Down Payment <span style="font-weight:400; color:var(--muted);">(Optional)</span></label>
+      <input type="number" id="downPayment" placeholder="e.g. 50000" />
+    </div>
+    <div class="input-group">
+      <label for="rate">Interest Rate <span style="font-weight:400; color:var(--muted);">(Annual %)</span></label>
+      <input type="number" id="rate" placeholder="e.g. 8.5" step="0.01" />
+    </div>
+    <div class="input-group">
+      <label for="tenure">Tenure <span style="font-weight:400; color:var(--muted);">(in months)</span></label>
+      <input type="number" id="tenure" placeholder="e.g. 36" />
+    </div>
+    <button type="submit">Calculate EMI</button>
+    <div class="result" id="result"></div>
+  </form>
   <script>
     async function calculateEMI() {
-      const amount = document.getElementById('amount').value;
-      const rate = document.getElementById('rate').value;
-      const tenure = document.getElementById('tenure').value;
-      const downPayment = document.getElementById('downPayment').value || 0;
+      const amount = parseFloat(document.getElementById('amount').value);
+      const rate = parseFloat(document.getElementById('rate').value);
+      const tenure = parseInt(document.getElementById('tenure').value);
+      const downPayment = parseFloat(document.getElementById('downPayment').value) || 0;
       const currency = document.getElementById('currency').value;
 
       if (!amount || !rate || !tenure) {
         alert("Please fill in all required fields");
+        return;
+      }
+      if (downPayment >= amount) {
+        alert("Down payment must be less than equipment cost.");
         return;
       }
 
@@ -95,19 +230,23 @@
 
       const data = await res.json();
 
+      const resultDiv = document.getElementById('result');
       if (data.error) {
-        document.getElementById('result').innerHTML = `<strong>Error:</strong> ${data.error}`;
+        resultDiv.style.display = 'block';
+        resultDiv.innerHTML = `<strong style="color:var(--danger)">Error:</strong> ${data.error}`;
         return;
       }
 
-      document.getElementById('result').style.display = 'block';
-      document.getElementById('result').innerHTML = `
-        <h3>Results:</h3>
+      resultDiv.style.display = 'block';
+      resultDiv.innerHTML = `
+        <h3>Results</h3>
         <p><strong>Monthly EMI:</strong> ₹${data.monthlyEMI}</p>
         <p><strong>Total Interest:</strong> ₹${data.totalInterest}</p>
         <p><strong>Total Payable:</strong> ₹${data.totalPayment}</p>
         <p><strong>Currency:</strong> ${data.currency}</p>
       `;
+      // Smooth scroll to result
+      resultDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
   </script>
 </body>
