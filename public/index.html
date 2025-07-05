@@ -222,7 +222,7 @@
         return;
       }
 
-      const res = await fetch('https://medifundr-api.onrender.com/api/loan/calc', {
+      const res = await fetch('https://medifundr.onrender.com/api/loan/calc', {
        method: 'POST',
        headers: { 'Content-Type': 'application/json' },
        body: JSON.stringify({ amount, rate, tenure, currency, downPayment })
