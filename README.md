@@ -7,7 +7,7 @@
 
 MediFundr is a responsive full-stack web app that helps clinics and hospitals estimate financing plans for purchasing medical equipment. It simplifies complex EMI calculations and supports real-time currency conversion (USD → INR), making it especially useful for international planning.
 
-> 💡 This project aligns with the domain of companies like **AFFORDMED** that enable affordable medical equipment distribution and financing.
+> 💡 This project aligns with the domain of companies that enable affordable medical equipment distribution and financing.
 
 ---
 
