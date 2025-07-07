@@ -3,7 +3,7 @@
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
-![MediFundr Banner](assets/banner.jpg)
+![MediFundr Banner](./assets/banner.jpg)
 
 MediFundr is a responsive full-stack web app that helps clinics and hospitals estimate financing plans for purchasing medical equipment. It simplifies complex EMI calculations and supports real-time currency conversion (USD → INR), making it especially useful for international planning.
 
