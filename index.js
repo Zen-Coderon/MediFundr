@@ -28,7 +28,6 @@ app.use(cors({
 app.use(express.json());
 const path = require('path');
 
-// ... existing code
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Serve index.html for root route
@@ -36,6 +35,10 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
+// Health check endpoint for uptime monitoring
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'ok' });
+});
 
 app.use('/api/loan', loanRoutes);
 
